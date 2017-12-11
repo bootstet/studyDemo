@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组那些事</title>
+</head>
+<style>
+
+</style>
+
+<body>
+
+</body>
+<script>
+    // instanceof 检测一个对象是否是数组
+
+    // var arr1 = [123]
+    // console.log(arr1 instanceof Array); // ture
+
+    // Array.isArray()
+
+    // console.log(Array.isArray([1,2,3])) // ture
+    // console.log(Array.isArray(123))     // false
+    // console.log(Array.isArray({a:12}))  // false
+
+    // toString()
+
+    // var arr2 = [1,2,3,45,"zhangfei","lisi"]
+    // console.log(arr2.toString())  // 1,2,3,45,zhangfei,lisi
+
+    // valueOf()
+
+    var arr3 = ["aaa", "bbb", "ccc"]
+    // console.log(arr3.valueOf()); 
+
+    // 数组.join(参数)
+
+    // var arr4 = arr3.join("|");
+    // console.log(arr4)
+
+
+    // 自己封装的join方法
+
+    Array.prototype.myJoin = function (param) {
+        var string = "";
+        for (var i = 0; i < this.length; i++) {
+            string += this[i];
+            if (i < this.length - 1) {
+                string += param;
+            }
+        }
+        return string;
+    }
+
+    // 数组元素的添加和删除
+
+    // push() pop()
+
+    //自己封装push方法
+    var arr = [12, 152, 53, 44, 45, 1, 121]
+    var arr1 = [12, 152, 53, 44, 45, 1, 121]
+    Array.prototype.myPush = function (param) {
+        for (var i = 0; i < arguments.length; i++) {
+            arr[arr.length] = arguments[i];
+        }
+        return this.length;
+    }
+    // pop
+    Array.prototype.myPop = function () {
+        var last = this[this.length - 1];
+        delete this[this.length - 1];
+        this.length--;
+        return last;
+    }
+    // unshift 
+    Array.prototype.myUnshift = function (param) {
+        var _newArr = this;
+        var _addArr = [];
+        for (var i = 0; i < arguments.length; i++) {
+            _addArr[i] = arguments[i];
+        }
+        var _addArrDemo = _addArr.length;
+        for (var j = 0; j < _newArr.length; j++) {
+            _addArr[_addArrDemo + j] = _newArr[j]
+        }
+
+        for (var i = 0; i < _addArr.length; i++) {
+            this[i] = _addArr[i]
+        }
+        return _addArr.length;
+    }
+    // shift
+    Array.prototype.myShift = function () {
+        var first = this[0];
+        for (var i = 1; i < this.length; i++) {
+            this[i - 1] = this[i]
+        }
+        this.length--;
+        return first;
+    }
+    // 数组元素排序
+    // reverse
+    Array.prototype.myReverse = function () {
+        var _NULLARR = []
+        for (var i = 0; i < this.length; i++) {
+            _NULLARR[i] = this[this.length - i - 1]
+        }
+        for (var i = 0; i < this.length; i++) {
+            this[i] = _NULLARR[i]
+        }
+        return this;
+    }
+    // 排序
+    Array.prototype.mySort = function () {
+        for (var i = 1; i < this.length; i++) {
+            if (this[i] > this[i - 1]) {
+                var a = this[i];
+                this[i] = this[i - 1];
+                this[i - 1] = a;
+            }
+            for (var j = 1; j < this.length; j++) {
+                if (this[j] > this[j - 1]) {
+                    var b = this[j];
+                    this[j] = this[j - 1];
+                    this[j - 1] = b;
+                }
+            }
+        }
+        return this;
+    }
+    //concat
+    Array.prototype.myConcat = function (param) {
+        var _NEWARR = [];
+        for (var i = 0; i < this.length; i++) {
+            _NEWARR[i] = this[i];
+        }
+        if (Array.isArray(param)) {
+            param.forEach(function (e, i, a) {
+                _NEWARR[_NEWARR.length] = e;
+            })
+        } else {
+            for (var j = 0; j < arguments.length; j++) {
+                console.log(_NEWARR.length)
+                _NEWARR[_NEWARR.length] = arguments[j];
+            }
+        }
+
+        return _NEWARR;
+    }
+
+    var aaa = [1, 2, 3, 4, 6];
+    var bbb = [3, 5, 6, 7, 0];
+    var ccc = [1, 2, 3, 4, 6];
+    var ddd = [3, 5, 6, 7, 0];
+    // slice 没有 
+    Array.prototype.mySlice = function () {
+        if (arguments.length == 0) {
+            return this;
+        } else if (arguments.length == 1) {
+            var _NewArray = [];
+            if (arguments[0] < 0) {
+                for (var i = this.length - Math.abs(arguments[0]); i < this.length; i++) {
+                    _NewArray[_NewArray.length] = this[i];
+                }
+                return _NewArray;
+            } else {
+                for (var i = arguments[0]; i < this.length; i++) {
+                    _NewArray[_NewArray.length] = this[i];
+                }
+                return _NewArray;
+            }
+        } else {
+            var _NewArray = [];
+            for (var i = arguments[0]; i < arguments[1]; i++) {
+                if (i > this.length) {
+                    continue;
+                }
+                _NewArray[_NewArray.length] = this[i];
+            }
+            return _NewArray;
+        }
+    }
+    // splice 
+    Array.prototype.mySplice = function () {
+
+    }
+    // filter 
+    var arr = [1500, 1200, 2000, 2100, 1800];
+    var newArr = arr.filter(function (ele, i, array) {
+        if (ele < 2000) {
+            return true;
+        } else {
+            return false;
+        }
+    })
+    console.log(newArr)
+
+    // 4.["c", "a", "z", "a", "x", "a"] 找到数组中每一个 a 出现的位置
+    var arrIndex = ["c", "a", "z", "a", "x", "a"];
+    arrIndex.forEach(function (e, i, a) {
+        if ("a" == e) {
+            console.log(i);
+        }
+    })
+
+    // 5. 编写一个方法去掉一个数组的重复元素 (数组去重)
+    var quzhongarr = ["鸣人", "鸣人", "佐助", "佐助", "小樱", "小樱"];
+    var newQuchongarr = [];
+    quzhongarr.forEach(function (e, i, a) {
+        if (newQuchongarr.indexOf(e) === -1) {
+            newQuchongarr.push(e);
+        }
+    })
+    console.log(newQuchongarr);
+
+    // 数组排序
+    var arr5 = [12, 45, 65, 32, 24, 87, 69, 54, 84, 1, 123, 658, 452]
+    var sort = {
+        quickSort: function (arr) {
+            if(arr.length<=1){
+                return arr;
+            }
+            var pivotIndex = Math.floor(arr.length/2);
+            var pivot = arr.splice(pivotIndex,1)[0];
+            var left = [];
+            var right = [];
+            for(var i=0;i<arr.length;i++){
+                if(arr[i]<pivot){
+                    left.push(arr[i]);
+                }else{
+                    right.push(arr[i]);
+                }
+            }
+            return sort.quickSort(left).concat(pivot,sort.quickSort(right))
+        }
+    }
+    console.log(sort.quickSort(arr5));
+</script>
+
+</html>
