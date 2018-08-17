@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+        }
+
+        .container {
+            width: 200px;
+            height: 80px;
+            position: relative;
+            margin: 0 auto;
+            /* overflow: hidden; */
+            border: 1px solid black;
+        }
+
+        ul {
+            /* width: 8000px; */
+            height: 80px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: 1px solid red;
+        }
+
+        li {
+            /* float: left; */
+            display: inline-block;
+            width: 190px;
+            height: 70px;
+            padding: 0 5px;
+            line-height: 70px;
+            margin-top: 5px;
+            background-color: skyblue;
+        }
+        
+        span {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="container">
+        <ul id="content">
+            <!-- <li></li> -->
+        </ul>
+    </div>
+</body>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    $(function () {
+        var dataList = [{
+                'name': "zhangsan1",
+                'hope': "lalalallalala"
+            },
+            {
+                'name': "lisi2",
+                'hope': "bababababa"
+            },
+            {
+                'name': "wangwu3",
+                'hope': "cacacacacaca"
+            },
+            {
+                'name': "zhaoliu4",
+                'hope': "fafafafafafa"
+            },
+            {
+                'name': "zhaoliu5",
+                'hope': "fafafafafafa"
+            },
+            {
+                'name': "zhaoliu6",
+                'hope': "fafafafafafa"
+            },
+            {
+                'name': "zhaoliu7",
+                'hope': "fafafafafafa"
+            },
+        ];
+        /**
+            dis: 每帧往右走的距离  time: 频率
+        */
+        function windowAnimate(dis,time) {
+            var domUl = document.getElementById('content');
+
+            for (var i = 0; i < dataList.length; i++) {
+                var newNode_li = document.createElement("li");
+                newNode_li.innerHTML = dataList[i].name + ":";
+                var newNode_p = document.createElement("span");
+                newNode_p.innerHTML = dataList[i].hope;
+                newNode_li.insertBefore(newNode_p, null);
+                console.log(newNode_li.style.width)
+                domUl.insertBefore(newNode_li, null);
+            }
+
+            domUl.style.left = 0;
+            domUl.style.width = dataList.length * 200 + "px";
+            console.log(dataList.length * 200 + "px");
+            
+            
+            var startLeft = 0;
+            var timer = setInterval(function () {
+                startLeft -= dis;
+                domUl.style.left = startLeft + "px";
+                console.log(domUl.style.left)
+            }, time)
+        }
+        windowAnimate(1, 20);
+
+        // $('.container ul li').html(dataList[1].name + ":" + dataList[1].hope);
+    })
+</script>
+
+</html>

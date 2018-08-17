@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: skyblue;
+        }
+        * {
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+        }
+
+        .container {
+            width: 200px;
+            height: 80px;
+            position: relative;
+            margin: 0 auto;
+            overflow: hidden;
+            border: 1px solid black;
+        }
+
+        ul {
+            /* width: 8000px; */
+            display: inline;
+            height: 50px;
+            position: absolute;
+            top: 15px;
+            left: 0;
+            border: 2px solid #fff;
+            border-radius: 5px;
+        }
+
+        li {
+            /* float: left; */
+            display: inline;
+            /* width: 190px; */
+            height: 70px;
+            padding:0 10px;
+            line-height: 50px;
+            /* margin-top: 5px; */
+            /* border: 1px solid yellow; */
+            /* border-radius: 5px; */
+            /* background-color: skyblue; */
+        }
+
+        span {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="container">
+        <ul id="content">
+            <!-- <li></li> -->
+        </ul>
+    </div>
+</body>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    $(function () {
+        var dataList = [{
+                'name': "zhangsan1",
+                'hope': "lalalallalala"
+            },
+            {
+                'name': "lisi2",
+                'hope': "bababababa"
+            },
+            {
+                'name': "wangwu3",
+                'hope': "cacacacacaca"
+            },
+            {
+                'name': "zhaoliu4",
+                'hope': "fafafafafafa"
+            },
+            {
+                'name': "zhaoliu5",
+                'hope': "fafafafafafa"
+            },
+            {
+                'name': "zhaoliu6",
+                'hope': "fafafafafafa"
+            },
+            {
+                'name': "zhaoliu7",
+                'hope': "fafafafafafa"
+            },
+        ];
+       /**
+         * @method windowAnimate 
+         * @param  dis: 每帧往右走的距离  time: 频率  parent_dom 外层盒子 child_dom 里层盒子
+         * @desc 根据接口动态获取获取信息，从右往左滚动
+         */
+        function windowAnimate(parent_dom, child_dom, dis, time) {
+            var domUl = document.getElementById('content');
+
+            var liDom = "";
+            for (var i = 0; i < dataList.length; i++) {
+                liDom += "<li><span>" + dataList[i].name + ":" + "</span>" + dataList[i].hope + "</li>";
+            }
+            $(child_dom).html(liDom);
+
+            var startLeft = 0;
+            var con_width = parseInt($(child_dom).css("width"));
+            var timer = setInterval(function () {
+                startLeft -= dis;
+                domUl.style.left = startLeft + "px";
+                var con_left = -parseInt(domUl.style.left);
+                if(con_left > con_width){
+                    startLeft = parseInt($(parent_dom).css("width"));
+                }
+            }, time)
+        }
+
+        windowAnimate("#container", "#content", 1, 20);
+    })
+</script>
+
+</html>

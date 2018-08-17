@@ -34,51 +34,67 @@
         //     console.log(data);
         // })
 
-        function runAsync1(){
-            var p = new Promise(function(reslove,reject){
-                //做一些异步操作
-                setTimeout(function(){
-                    console.log("异步1执行完毕");
-                    reslove('随便什么数据1');
-                },2000)
-            });
-            return p;
-        }
+        // function runAsync1(){
+        //     var p = new Promise(function(reslove,reject){
+        //         //做一些异步操作
+        //         setTimeout(function(){
+        //             console.log("异步1执行完毕");
+        //             reslove('随便什么数据1');
+        //         },2000)
+        //     });
+        //     return p;
+        // }
 
-        function runAsync2(){
-            var p = new Promise(function(reslove,reject){
-                setTimeout(function(){
-                    console.log("异步2执行完毕");
-                    reslove("随便什么数据2");
-                },2000)
-            });
-            return p;
-        }
+        // function runAsync2(){
+        //     var p = new Promise(function(reslove,reject){
+        //         setTimeout(function(){
+        //             console.log("异步2执行完毕");
+        //             reslove("随便什么数据2");
+        //         },2000)
+        //     });
+        //     return p;
+        // }
 
-        function runAsync3(){
-            var p = new Promise(function(reslove,reject){
-                setTimeout(function(){
-                    console.log("异步3执行完毕");
-                    reslove("随便什么数据3");
-                },2000);
-            })
-            return p;
-        }
+        // function runAsync3(){
+        //     var p = new Promise(function(reslove,reject){
+        //         setTimeout(function(){
+        //             console.log("异步3执行完毕");
+        //             reslove("随便什么数据3");
+        //         },2000);
+        //     })
+        //     return p;
+        // }
 
-        runAsync1()
-        .then(function(data){
-            console.log(data);
-            return runAsync2();
-        })
-        .then(function(data){
-            console.log(data);
-            return '直接返回数据';
-        })
-        .then(function(data){
-            console.log(data)
-        })
-
-
+        // runAsync1()
+        // .then(function(data){
+        //     console.log(data);
+        //     return runAsync2();
+        // })
+        // .then(function(data){
+        //     console.log(data);
+        //     return '直接返回数据';
+        // })
+        // .then(function(data){
+        //     console.log(data)
+        // })
+            function async(){
+                let p1 = new Promise((reslove, reject)=>{
+                    setTimeout(() => {
+                        reslove('成功了！');
+                    }, 1000);
+                })
+                let p2 = new Promise((reslove, rejuct)=>{
+                    setTimeout(() => {
+                        reslove('success!');
+                    }, 2000);
+                })
+                Promise.all([p1, p2]).then((result)=>{
+                    console.log(result)
+                }).catch(err=>{
+                    console.log(err);
+                })
+            }
+            async();
     </script>
 </body>
 
