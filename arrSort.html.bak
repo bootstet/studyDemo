@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+	<head>
+		<title>sort</title>
+	</head>
+	<body>
+		<script>
+		
+		var arr = [0,0,1,2,1,2,3,0,2];
+		console.log(arr);
+		 function sortStatus(param){
+             var arr = param;
+             if(!arr){
+                 return;
+             }
+             for(var i = 0; i < arr.length; i++){
+                 for(var j = 0; j < arr.length-1; j++){
+                     if(arr[j] > arr[j+1]){
+                         var temp = arr[j];
+                         arr[j] = arr[j+1];
+                         arr[j+1] = temp;
+                    }
+                 }
+             }
+             return arr;
+         }
+		</script>
+	</body>
+</html>

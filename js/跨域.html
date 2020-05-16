@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <script>
+        var Ajax = {
+            get: function (url, fn) {
+                var obj = new XMLHttpRequest();
+                obj.open('GET', url, true);
+                obj.onreadystatechange = function () {
+                    if (obj.readyState == 0) {
+                        console.log(obj.readyState, "请求未初始化");
+                    }
+                    if (obj.readyState == 1) {
+                        console.log(obj.readyState, '服务器链接已建立')
+                    }
+                    if (obj.readyState == 2) {
+                        console.log(obj.readyState, '请求已接收')
+                    }
+                    if (obj.readyState == 3) {
+                        console.log(obj.readyState, '请求处理中')
+                    }
+                    console.log(obj)
+                    if (obj.readyState == 4 && obj.status == 200 || obj.status == 304) {
+                        fn(obj.responseText);
+                    }
+
+                }
+                obj.send();
+            },
+            post: function (url, data, fn) {
+                var obj = new XMLHttpRequest();
+                obj.open('POST', url, true);
+                obj.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                obj.onreadystatechange = function () {
+                    if (obj.readyState == 4 && (obj.status == 200 || obj.status == 304)) {
+                        fn.call(this, obj.responseText);
+                    }
+                };
+                obj.send(data);
+            }
+        }
+        var url =
+            'https://manage.dianliaoapp.com/server/index.php/Activity/getFamilyStarCraftList?type=1&date=2017-12-12';
+        // Ajax.get(url, function (res) {
+        //     console.log(res);
+        // })
+
+        // var url1 = 'https://manage.dianliaoapp.com/server/index.php/Activity/getFamilyStarCraftList';
+        // Ajax.post(url1, 'type=1&date=2017-12-12', function (res) {
+        //     console.log(res)
+        // })
+
+        var qqUrl =
+            'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg?g_tk=919221224&uin=648810562&format=json&inCharset=utf-8&outCharset=utf-8&notice=0&platform=h5&needNewCode=1&_=1513069692655';
+        // Ajax.get(qqUrl,function(res){
+        //     console.log(res);
+        // })
+
+        var script = document.createElement('script');
+        script.setAttribute('src', qqUrl);
+        document.getElementsByTagName('head')[0].appendChild(script);
+
+        script.onload = function () {
+            alert(__GetZoneResult_);
+        };
+        script.onreadystatechange = function () {
+            if (oS.readyState == 'complete') {
+                alert(__GetZoneResult_);
+            }
+        };
+
+        // $(function(){
+        //     $.ajax({
+        //         type:"GET",
+        //         async: false,
+        //         url: qqUrl,
+        //         dataType: "jsonp",
+        //         jsonp:"callback",
+        //         jsonpCallback: "flightHandler",
+        //         success: function(res){
+        //             alert(111)
+        //             // console.log(res);
+        //         },
+        //         error: function(err){
+        //             alert(222)
+        //             console.log(err);
+        //         }
+        //     })
+        // })
+    </script>
+</body>
+
+</html>

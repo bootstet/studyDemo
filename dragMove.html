@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>drag</title>
+    <script src="http://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <style>
+        #wrapper {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            background-color: skyblue;
+            overflow: hidden;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .box1,
+        .box2,
+        .box3 {
+            margin: 0 auto;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 300px;
+            background-color: gray;
+        }
+
+        .box1 {
+            top: 10px;
+        }
+
+        .box2 {
+            top: 20px;
+            background: #777;
+        }
+
+        .box3 {
+            top: 30px;
+            background-color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+
+        <div class="box1"></div>
+        <div class="box2"></div>
+        <div class="box3"></div>
+
+    </div>
+    <script>
+        var box1 = document.querySelector('.box1');
+        var box2 = document.querySelector('.box2');
+        var box3 = document.querySelector('.box3');
+
+        document.querySelector('#wrapper').ontouchmove = function (e) {
+            e.preventDefault();
+        }
+
+
+
+        var dragMove = function (dom) {
+            var box3Offsetleft, box3Offsettop;
+            var clientXStart, clientYStart;
+
+
+            var moveX, moveY;
+            var dragDom = document.querySelector(dom);
+
+            dragDom.ontouchstart = function (e) {
+                clientXStart = e.touches[0].clientX;
+                clientYStart = e.touches[0].clientY;
+                box3Offsetleft = dragDom.offsetLeft;
+                box3Offsettop = dragDom.offsetTop;
+            }
+
+            dragDom.ontouchmove = function (e) {
+                moveX = e.touches[0].clientX - clientXStart
+                moveY = e.touches[0].clientY - clientYStart
+                dragDom.style.left = box3Offsetleft + moveX + 'px';
+                dragDom.style.top = box3Offsettop + moveY + "px";
+            }
+            dragDom.ontouchend = function (e) {
+                if (moveX < -70) {
+                    $('.box3').animate({
+                        left: "-500px",
+                    }, 300)
+                    setTimeout(() => {
+                        console.log(dragDom.offsetLeft)
+                        $('.box3').css({
+                            top: "30px",
+                            left: box3Offsetleft + 'px'
+                        })
+                    }, 320);
+                } else if (moveX > 70) {
+                    $('.box3').animate({
+                        left: "700px",
+                    }, 300)
+
+                    // $('.box3').css({
+                    //     top: "30px",
+                    //     left: box3Offsetleft + 'px'
+                    // })
+                    console.log(box3Offsetleft)
+                    setTimeout(() => {
+                        console.log(dragDom.offsetLeft)
+                        $('.box3').css({
+                            top: "30px",
+                            left: box3Offsetleft + 'px'
+                        })
+                    }, 320);
+                } else {
+                    dragDom.style.left = box3Offsetleft + 'px';
+                    dragDom.style.top = box3Offsettop + 'px';
+                    console.log(box3Offsetleft)
+                    console.log(dragDom.offsetLeft)
+                }
+            }
+        }
+        dragMove('.box3');
+
+        var judgeHide = function (dom) {
+            var dom = document.querySelector(dom);
+            if (dom.offsetLeft == 700 || dom.offsetLeft == -500) {
+
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // var x = 11;
+        // var obj = {
+        //     x: 22,
+        //     say: function(){
+        //         console.log(this.x);
+        //     }
+        // }
+        // obj.say(); 
+        // var x = 11;
+        // var obj = {
+        //     x: 22,
+        //     say: ()=>{
+        //         console.log(this.x);
+        //     }
+        // }
+        // obj.say();  
+
+        // var a = 11;
+        // function test1() {
+        //     this.a = 22;
+        //     let b = function() {
+        //         console.log(this.a);
+        //     }
+        //     b();
+        // }
+        // var a = new test1();
+
+        // var a = 11;
+        // function test2() {
+        //     this.a = 22;
+        //     let b =  ()=>{console.log(this.a)}
+        //     b();
+        // }
+        // var a = new test1();
+
+        // function Person(){
+        //     this.name = 'chenyouzeng',
+        //     this.age = 18;
+        //     // console.log(this)
+        //     setTimeout(function(){
+        //         console.log(this);
+        //     },300)
+            
+        // }
+        // let p = new Person()
+
+        //回调函数
+        function func1(a,func2) {
+            if(a > 10 && typeof func2 == 'function') {
+                func2()
+            }
+        }
+        func1(11, function(){
+            console.log('this is a callback')
+        })
+
+
+        // 1个细胞，一个小时分裂一次，生命周期是3小时，求n小时后容器内，有多少细胞。
+    </script>
+</body>
+</html>
